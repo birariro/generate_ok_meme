@@ -16,7 +16,7 @@ def main():
   if st.button("그리기"):
     # 이미지에 텍스트 그리기
     drawn_image = draw_text_on_image(image, text_to_draw, x_slider,y_slider)
-    st.image(drawn_image, caption="텍스트가 그려진 이미지", use_column_width=True)
+    st.image(drawn_image, use_column_width=True)
 
     buf = BytesIO()
     drawn_image.save(buf, format="PNG")
