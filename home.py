@@ -8,12 +8,14 @@ def main():
   image = Image.open('resource/empty_image.png')
   st.image(Image.open('resource/sample_image.png'))
 
+  x_slider = st.slider('텍스트 X 좌표', 0.0, 100.0, 30.0)
+  y_slider = st.slider('텍스트 Y 좌표', 100.0, 200.0, 150.0)
+
   text_to_draw = st.text_area("이미지에 그릴 텍스트를 입력하세요.", "    아저씨,\n우체국이 어딘지\n    아세요?")
 
-  
   if st.button("그리기"):
     # 이미지에 텍스트 그리기
-    drawn_image = draw_text_on_image(image, text_to_draw)
+    drawn_image = draw_text_on_image(image, text_to_draw, x_slider,y_slider)
     st.image(drawn_image, caption="텍스트가 그려진 이미지", use_column_width=True)
 
     buf = BytesIO()
@@ -27,7 +29,7 @@ def main():
           )
   
 
-def draw_text_on_image(image, text):
+def draw_text_on_image(image, text,x,y):
   img_with_text = image.copy()
   draw = ImageDraw.Draw(img_with_text)
 
@@ -35,8 +37,8 @@ def draw_text_on_image(image, text):
   font = ImageFont.truetype("resource/NanumGothic-ExtraBold.ttf", size=14) 
 
   # 텍스트 위치 설정 (임의의 위치)
-  text_x = 30
-  text_y = 150
+  text_x = x
+  text_y = y
 
   # 텍스트 그리기
   text_color = (88, 93, 114) 
