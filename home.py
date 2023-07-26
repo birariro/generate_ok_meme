@@ -4,16 +4,12 @@ import numpy as np
 from io import BytesIO
 
 
-def load(text, x,y):
-    # 이미지 업로드
-    image = Image.open('resource/empty_image.png')
-
+def load(image, text, x,y):
     # 사용자가 입력한 텍스트
   
     drawn_image = draw_with_load(image, text, x, y)
     st.image(drawn_image, use_column_width=True)
     
-
     download_image_btn(drawn_image)
 
 
@@ -25,17 +21,24 @@ def main():
   x = 30.0
   y = 150.0
   text = "    아저씨,\n우체국이 어딘지\n    아세요?"
+  image = Image.open('resource/empty_image.png')
 
+
+  
   with col2:
     text = st.text_area("이미지에 그릴 텍스트를 입력하세요.", text, key="text_area")     
     # 텍스트 X, Y 좌표 슬라이더 생성
     x = st.slider('텍스트 X 좌표', 0.0, 100.0, x, key="x_slider")
     y = st.slider('텍스트 Y 좌표', 100.0, 200.0, y, key="y_slider")
-  
+    uploaded_file = st.file_uploader("Upload your file here...", type=['png', 'jpeg', 'jpg'],key="upload_image")
+
+    if uploaded_file is not None:
+        image = Image.open(uploaded_file)
+    
   with col1:
   # 텍스트 X, Y 좌표가 변경될 때마다 load() 함수 호출하여 이미지 업데이트
-    if st.session_state.x_slider is not None or st.session_state.y_slider is not None or st.session_state.text_area is not None:
-      load(text, x, y)
+    if st.session_state.x_slider is not None or st.session_state.y_slider is not None or st.session_state.text_area is not None or st.session_state.upload_image is not None:
+      load(image, text, x, y)
   
         
 
