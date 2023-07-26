@@ -20,9 +20,9 @@ def main():
     drawn_image.save(buf, format="PNG")
     byte_im = buf.getvalue()
     st.download_button(
-            label="Download image",
+            label="다운로드",
             data=byte_im,
-            file_name="flower.png",
+            file_name="ok_meme.png",
             mime="image/png"
           )
   
